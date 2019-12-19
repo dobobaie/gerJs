@@ -1,0 +1,36 @@
+{
+  "name": "@gerjs/core",
+  "version": "0.0.1",
+  "description": "Create Swagger documentation from Joi models",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "nyc ava --serial --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dobobaie/gerJs.git"
+  },
+  "keywords": [
+    "swagger",
+    "js",
+    "openapi",
+    "joi",
+    "documentation"
+  ],
+  "author": "dobobaie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dobobaie/gerJs/issues"
+  },
+  "homepage": "https://github.com/dobobaie/gerJs#readme",
+  "devDependencies": {
+    "@hapi/joi": "^16.1.8",
+    "ava": "^2.1.0",
+    "nyc": "^14.1.1"
+  },
+  "ava": {
+    "files": [
+      "tests/*.test.js"
+    ]
+  }
+}

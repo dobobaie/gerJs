@@ -1,0 +1,152 @@
+openapi: 3.0.0
+servers:
+  - url: 'http://locahost:8000/'
+info:
+  version: "1.0.0"
+  title: "Swagger documentation"
+  description: "Retrieve all information from the API inside this documents."
+paths:
+  /register:
+    post:
+      description: ""
+      tags:
+        - register
+      requestBody:
+        $ref: '#/components/requestBodies/POSTRegister'
+      responses:
+        '200':
+          description: "response field"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classic'
+  /users/:id:
+    put:
+      description: ""
+      tags:
+        - users
+      parameters:
+      - name: token
+        in: query
+        description: ""
+        required: true
+        schema:
+          type: string
+          minLength: 12
+          maxLength: 30
+      - name: id
+        in: path
+        description: ":id parameter"
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/PUTUsersId'
+      responses:
+        '200':
+          description: "response field"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classic'
+  /:
+    get:
+      description: ""
+      parameters:
+      - name: token
+        in: query
+        description: ""
+        required: true
+        schema:
+          type: string
+          minLength: 12
+          maxLength: 30
+      responses:
+        '200':
+          description: ""
+          content:
+            text/plain:
+              schema:
+                type: string
+                default: ""
+    post:
+      description: ""
+      requestBody:
+        $ref: '#/components/requestBodies/POST'
+      responses:
+        '200':
+          description: ""
+          content:
+            text/plain:
+              schema:
+                type: string
+                default: "Test"
+components:
+  requestBodies:
+     POSTRegister:
+      description: "toto"
+      required: true
+      content:
+       application/json:
+        schema:
+         $ref: '#/components/schemas/POSTRegister'
+     PUTUsersId:
+      description: ""
+      required: false
+      content:
+       application/json:
+        schema:
+         $ref: '#/components/schemas/PUTUsersId'
+     POST:
+      description: ""
+      required: false
+      content:
+       application/json:
+        schema:
+         $ref: '#/components/schemas/POST'
+  schemas:
+    POSTRegister:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        firstname:
+          type: "string"
+          minLength: 12
+          maxLength: 30
+        lastname:
+          type: "string"
+        extra:
+          type: "object"
+          $ref: '#/components/schemas/Classic'
+        test:
+          type: "array"
+          items:
+            type: "object"
+            $ref: '#/components/schemas/POSTRegisterTest'
+        created:
+          type: "date"
+        status:
+          type: "any"
+    Classic:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+        result:
+          type: "boolean"
+    POSTRegisterTest:
+      type: "object"
+      properties:
+        number:
+          type: "number"
+    PUTUsersId:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
+    POST:
+      type: "object"
+      properties:
+        token:
+          type: "string"
