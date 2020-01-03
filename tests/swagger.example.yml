@@ -6,23 +6,9 @@ info:
   title: "Swagger documentation"
   description: "Retrieve all information from the API inside this documents."
 paths:
-  /register:
-    post:
-      description: ""
-      tags:
-        - register
-      requestBody:
-        $ref: '#/components/requestBodies/POSTRegister'
-      responses:
-        '200':
-          description: "response field"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Classic'
   /users/:id:
     put:
-      description: ""
+      description: "This is the main description"
       tags:
         - users
       parameters:
@@ -42,14 +28,29 @@ paths:
         $ref: '#/components/requestBodies/PUTUsersId'
       responses:
         '200':
-          description: "response field"
+          description: "Response description"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Classic'
-  /:
+  /users:
+    post:
+      description: ""
+      tags:
+        - users
+      requestBody:
+        $ref: '#/components/requestBodies/POSTUsers'
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classic'
     get:
       description: ""
+      tags:
+        - users
       parameters:
       - name: token
         in: query
@@ -63,14 +64,14 @@ paths:
         '200':
           description: ""
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                default: ""
-    post:
+                $ref: '#/components/schemas/ResponseGETUsers'
+  /:
+    get:
       description: ""
-      requestBody:
-        $ref: '#/components/requestBodies/POST'
+      tags:
+        - root
       responses:
         '200':
           description: ""
@@ -78,54 +79,31 @@ paths:
             text/plain:
               schema:
                 type: string
-                default: "Test"
+                default: "Default reponse"
 components:
   requestBodies:
-     POSTRegister:
-      description: "toto"
+     PUTUsersId:
+      description: ""
       required: true
       content:
        application/json:
         schema:
-         $ref: '#/components/schemas/POSTRegister'
-     PUTUsersId:
-      description: ""
-      required: false
-      content:
-       application/json:
-        schema:
          $ref: '#/components/schemas/PUTUsersId'
-     POST:
+     POSTUsers:
       description: ""
-      required: false
+      required: true
       content:
        application/json:
         schema:
-         $ref: '#/components/schemas/POST'
+         $ref: '#/components/schemas/POSTUsers'
   schemas:
-    POSTRegister:
+    PUTUsersId:
       type: "object"
       properties:
         username:
           type: "string"
-        firstname:
-          type: "string"
-          minLength: 12
-          maxLength: 30
         lastname:
           type: "string"
-        extra:
-          type: "object"
-          $ref: '#/components/schemas/Classic'
-        test:
-          type: "array"
-          items:
-            type: "object"
-            $ref: '#/components/schemas/POSTRegisterTest'
-        created:
-          type: "date"
-        status:
-          type: "any"
     Classic:
       type: "object"
       properties:
@@ -133,20 +111,54 @@ components:
           type: "string"
         result:
           type: "boolean"
-    POSTRegisterTest:
-      type: "object"
-      properties:
-        number:
-          type: "number"
-    PUTUsersId:
+        username:
+          type: "string"
+        created:
+          type: "date"
+        status:
+          type: "any"
+    POSTUsers:
+      type: "array"
+      items:
+        type: "object"
+        $ref: '#/components/schemas/POSTUsersItems'
+    POSTUsersItems:
       type: "object"
       properties:
         username:
           type: "string"
-        password:
+        age:
+          type: "number"
+          minimum: 20
+          maximum: 70
+        firstname:
           type: "string"
-    POST:
+        lastname:
+          type: "string"
+    ResponseGETUsers:
+      type: "array"
+      items:
+        type: "object"
+        $ref: '#/components/schemas/ResponseGETUsersItems'
+    ResponseGETUsersItems:
+      type: "object"
+      properties:
+        test:
+          type: "object"
+          $ref: '#/components/schemas/Classic'
+        test2:
+          type: "array"
+          items:
+            type: "object"
+            $ref: '#/components/schemas/Token'
+        firstname:
+          type: "string"
+        lastname:
+          type: "string"
+    Token:
       type: "object"
       properties:
         token:
           type: "string"
+          minLength: 12
+          maxLength: 30

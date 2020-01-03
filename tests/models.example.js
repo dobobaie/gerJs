@@ -7,51 +7,52 @@ const refs = {
     }).label("token"),
   classic:
     Joi.object({
-      message: Joi.string(),
-      result: Joi.boolean()
+      message: Joi.string().default("request done with success"),
+      result: Joi.boolean().default(true),
+      username: Joi.string(),
+      created: Joi.date().default(Date.now).description('created field'),
+      status: Joi.any().default('registered').description('this key will match anything you give it')
     }).label("classic")
 };
 
 const models = {
-  'POST/register': {
-    description: '',
-    body:
-      Joi.object({
-        username: Joi.string().default("toto").description('username field'),
-        firstname: Joi.string().min(12).max(30).required().description('firstname field'),
-        lastname: Joi.string().description('lastname field'),
-        extra: refs.classic,
-        test: Joi.array().items(
-          Joi.object({
-            number: Joi.number()
-          })
-        ),
-        created: Joi.date().default(Date.now).description('created field'),
-        status: Joi.any().default('registered').description('this key will match anything you give it')
-      }).description("toto").required(),
-    response: refs.classic.description('response field')
-  },
   'PUT/users/:id': {
-    description: '',
+    description: 'This is the main description',
     queries: refs.token,
     body: 
       Joi.object({
-        username: Joi.string().required().description('username field'),
-        password: Joi.string().required().description('password field')
-      }),
-    response: refs.classic.description('response field').default({ toto: Joi.string() })
+        username: Joi.string().required().description('Username'),
+        lastname: Joi.string().default("Smith").description('Lastname')
+      }).required(),
+    response: refs.classic.description('Response description')
+  },
+  'POST/users': {
+    body: 
+      Joi.array().items(
+        Joi.object({
+          username: Joi.string(),
+          age: Joi.number().greater(20).less(70).required(),
+          firstname: Joi.string().required(),
+          lastname: Joi.string().required()
+        }).required()
+      ).required(),
+    response: refs.classic
+  },
+  'GET/users': {
+    queries: refs.token,
+    response: Joi.array().items(
+      Joi.object({
+        test: refs.classic,
+        test2: Joi.array().items(refs.token),
+        firstname: Joi.string(),
+        lastname: Joi.string()
+      })
+    )
   },
   'GET/': {
-    queries: refs.token,
-    response: Joi.any().meta({ "Content-Type": "text/plain" })
+    tags: ["root"],
+    response: Joi.string().default('Default reponse')
   },
-  'POST/': {
-    body: 
-      Joi.object({
-        token: Joi.string().required().description('...')
-      }),
-    response: Joi.any().default("Test").meta({ "Content-Type": "text/plain" })
-  }
 };
 
 module.exports = () => models;

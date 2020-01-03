@@ -10,7 +10,7 @@ Help us to improve the project by contributing 👥
 ## ☁️ Installation
 
 ```
-$ npm install @gerjs/core
+$ npm install gerjs-core
 ```
 
 ## 📝 Usage
@@ -21,7 +21,7 @@ Create a new instance :
 
 ``` js
 const modelsAPI = require("./models/models");
-const gerJs = require("@gerjs/core")({
+const gerJs = require("gerjs-core")({
   swagger: {
     title: "Swagger title",
     description: "Swagger description",
@@ -101,6 +101,8 @@ const models =
   
   'GET/': {
       queries: refs.token,
+      response: Joi.string().default("Default response").description('...')
+      // OR
       response: Joi.any().meta({ "Content-Type": "text/plain" }).description('...')
   }
 };
@@ -119,7 +121,7 @@ module.exports = models;
     tags: Array<String>,
     queries: Joi,
     body: Joi,
-    response: Joi,
+    response: Joi, // required
   }
 }
 ```

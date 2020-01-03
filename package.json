@@ -1,5 +1,5 @@
 {
-  "name": "@gerjs/core",
+  "name": "gerjs-core",
   "version": "0.0.1",
   "description": "Create Swagger documentation from Joi models",
   "main": "lib/index.js",
