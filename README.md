@@ -117,10 +117,10 @@ module.exports = models;
 {
   // METHOD + ROUTE
   '{POST|GET|PUT|DELETE|...}{route: / | /hello | /...}': {
-    description: String,
-    tags: Array<String>,
-    queries: Joi,
-    body: Joi,
+    description: String, // default: empty
+    tags: Array<String>, // default: automatic
+    queries: Joi, // optional
+    body: Joi, // optional
     response: Joi, // required
   }
 }
@@ -129,6 +129,23 @@ module.exports = models;
 ## Usage Refs
 
 This is classic `Joi` declaration. But `label(String)` is required to make a link between each same refs.  
+
+For example :  
+``` js
+const Joi = require('@hapi/joi');
+
+const refs = {
+  token:
+    Joi.object({
+      token: Joi.string().required().min(12).max(30),
+    }).label("token"),
+};
+```
+  
+As you can see `refs.token` own `token` label from `.label("token")` declaration.  
+So everytime `refs.token` will be called, the token decaration will be referenced in the same reference in the Swagger file.  
+
+If you don't specified the `label` declaration then another reference will be created with another specific name.   
 
 ## Specify `Content-Type`
 

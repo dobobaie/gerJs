@@ -1,6 +1,6 @@
 {
   "name": "gerjs-core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Create Swagger documentation from Joi models",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dobobaie/gerJs.git"
+    "url": "git+https://github.com/dobobaie/gerjs.git"
   },
   "keywords": [
     "swagger",
@@ -20,9 +20,9 @@
   "author": "dobobaie",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dobobaie/gerJs/issues"
+    "url": "https://github.com/dobobaie/gerjs/issues"
   },
-  "homepage": "https://github.com/dobobaie/gerJs#readme",
+  "homepage": "https://github.com/dobobaie/gerjs#readme",
   "devDependencies": {
     "@hapi/joi": "^16.1.8",
     "ava": "^2.1.0",
