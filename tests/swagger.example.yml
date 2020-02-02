@@ -6,7 +6,7 @@ info:
   title: "Swagger documentation"
   description: "Retrieve all information from the API inside this documents."
 paths:
-  /users/:id:
+  /users/{id}:
     put:
       description: "This is the main description"
       tags:
